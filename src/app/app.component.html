@@ -1,0 +1,56 @@
+<div class="container">
+  <h4>Upload CSV File</h4>
+  <div class="input-group" style="width: 50%;">
+      <div class="custom-file" >
+        <input type="file" #csvFile class="custom-file-input" id="fileUploadCSV" (click)="FileReset()" (change)="onFileSelect($event)"
+           scribedby="fileUploadCSVAddon" accept=".csv">
+        <label class="custom-file-label" for="fileUploadCSV">Choose file (MaxSize:10MB)</label>
+      </div>
+      <input type="button" class="btn btn-light" style="background: #e9ecef;" (click)="DownloadTemplate()" value="Download Template">
+  </div>
+  <div class="card bg-light" *ngIf="IsValidData">
+    <div class="card-body">
+      <div class="form-group col-md-3 float-right">
+          <label for="comment">Filter By Minimal Issue Count:</label>
+          <input #minFilter type="number" class="form-control" [(ngModel)]="txtFtrMinIssueCnt">
+        </div>
+        <div class="table-responsive">
+          <table class="table table-fixed">
+              <thead>
+                <tr>
+                  <th scope="col" class="col-3">
+                    First Name
+                  </th>
+                  <th scope="col" class="col-3">
+                    Sur name
+                  </th>
+                  <th scope="col" class="col-3">
+                    Issue count
+                  </th>
+                  <th scope="col" class="col-3">
+                    Date of birth
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor ="let dr of csvRecords | minimalIssue: txtFtrMinIssueCnt">
+                  <td  class="col-3">
+                    {{dr.FirstName}}
+                  </td>
+                  <td  class="col-3">
+                    {{dr.SurName}}
+                  </td>
+                  <td  class="col-3">
+                    {{dr.IssueCount}}
+                  </td>
+                  <td  class="col-3">
+                    {{dr.Dateofbirth | date:"dd/MM/yyyy"  }}
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+</div>
+    
